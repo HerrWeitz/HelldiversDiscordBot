@@ -2,16 +2,19 @@ import discord
 from discord.ext import commands
 import os
 
-# Bot Setup
 bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
-# Wenn Bot startet
+GUILD_ID = 1415795711747817545
+
 @bot.event
 async def on_ready():
     print(f"✅ Bot online: {bot.user}")
 
-# Slash Command: Helldivers Bericht
-@bot.slash_command(name="helldivers_bericht", description="Erstelle einen Helldivers Einsatzbericht")
+@bot.slash_command(
+    name="helldivers_bericht",
+    description="Erstelle einen Helldivers Einsatzbericht",
+    guild_ids=[GUILD_ID]  # <--- sorgt dafür, dass es sofort da ist
+)
 async def helldivers_bericht(
     ctx,
     planet: discord.Option(str, "Planet?"),
@@ -24,7 +27,6 @@ async def helldivers_bericht(
     ausgang: discord.Option(str, "Ausgang", choices=["Erfolg", "Teil-Erfolg", "Fehlschlag"]),
     dauer: discord.Option(str, "Einsatzdauer (z. B. 45 Minuten)")
 ):
-    # Embed bauen
     embed = discord.Embed(
         title=f"Einsatzbericht – {planet}",
         description=f"Sektor: **{sektor}**",
@@ -41,10 +43,8 @@ async def helldivers_bericht(
     embed.add_field(name="Dauer", value=dauer, inline=True)
     embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
 
-    # Beispiel-Bild (kannst später für Planeten ändern)
     embed.set_image(url="https://i.imgur.com/4M34hi2.png")
 
     await ctx.respond(embed=embed)
 
-# Bot starten mit Token aus Railway Variables
 bot.run(os.getenv("TOKEN"))
