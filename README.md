@@ -18,8 +18,6 @@ Er sorgt für Ordnung, dokumentiert eure Missionen und „sucht nach Verrätern�
 3. Bot-Token als Umgebungsvariable `TOKEN` setzen  
 4. `main.py` starten  
 
-## 📸 Beispiel
-![Einsatzbericht]([https://i.imgur.com/4M34hi2.png](https://media.discordapp.net/attachments/1417999402261418176/1417999420225622079/image.png?ex=68cc865e&is=68cb34de&hm=8dcb4e86267bdb853bd818b75ccae19bd569ae12bfba92fc2f238f2398a52ad8&=&format=webp&quality=lossless))
 
 ---
 
@@ -44,5 +42,3 @@ It enforces order, documents your missions, and “hunts for traitors” – all
 3. Set your bot token as environment variable `TOKEN`  
 4. Run `main.py`  
 
-## 📸 Example
-![Mission Report]([https://i.imgur.com/4M34hi2.png](https://media.discordapp.net/attachments/1417999402261418176/1417999420225622079/image.png?ex=68cc865e&is=68cb34de&hm=8dcb4e86267bdb853bd818b75ccae19bd569ae12bfba92fc2f238f2398a52ad8&=&format=webp&quality=lossless))
