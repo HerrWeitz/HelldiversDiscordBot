@@ -26,12 +26,15 @@ async def helldivers_bericht(
     verluste: discord.Option(int, "Gefallene", choices=[0, 1, 2, 3, 4]),
     ausgang: discord.Option(str, "Ausgang", choices=["Erfolg", "Teil-Erfolg", "Fehlschlag"]),
     dauer: discord.Option(str, "Einsatzdauer (z. B. 45 Minuten)")
+    map_image: discord.Option(discord.Attachment, "Map-Screenshot hochladen") = None
+
 ):
     embed = discord.Embed(
         title=f"Einsatzbericht – {planet}",
         description=f"Sektor: **{sektor}**",
-        color=discord.Color.red()
+        color=discord.Color.from_rgb(0, 102, 204)  # schönes Blau
     )
+    embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png/revision/latest/scale-to-width-down/1200?cb=20250207171045")  # Beispiel-Logo/Banner
     embed.add_field(name="Planet", value=planet, inline=True)
     embed.add_field(name="Sektor", value=sektor, inline=True)
     embed.add_field(name="Feinde", value=gegner, inline=True)
@@ -43,7 +46,9 @@ async def helldivers_bericht(
     embed.add_field(name="Dauer", value=dauer, inline=True)
     embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
 
-    embed.set_image(url="https://i.imgur.com/4M34hi2.png")
+    embed.set_image(url="https://helldivers.wiki.gg/images/Ministry_of_Defense_Icon.png?a8a8a0")
+    if map_image:
+        embed.set_image(url=map_image.url)
 
     await ctx.respond(embed=embed)
 
