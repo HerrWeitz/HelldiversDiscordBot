@@ -25,8 +25,8 @@ async def helldivers_bericht(
     helldiver: discord.Option(int, "Anzahl Helldiver", choices=[1, 2, 3, 4]),
     verluste: discord.Option(int, "Gefallene", choices=[0, 1, 2, 3, 4]),
     ausgang: discord.Option(str, "Ausgang", choices=["Erfolg", "Teil-Erfolg", "Fehlschlag"]),
-    dauer = discord.Option(str, description="Einsatzdauer (z.B. 45 Minuten)")
-    map_image: discord.Option(discord.Attachment, "Map-Screenshot hochladen") = None
+    dauer: discord.Option(str, "Einsatzdauer (z.B. 45 Minuten)"),   # ✅ so passt’s
+    map_image: discord.Option(discord.Attachment, "Map-Screenshot hochladen", required=False)  # ✅ optionales Bild
 
 ):
     embed = discord.Embed(
