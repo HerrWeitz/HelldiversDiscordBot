@@ -55,6 +55,10 @@ async def helldivers_bericht(
         description=f"**Planet:** {planet}\n**Sektor:** {sektor}",
         color=discord.Color.blue()
     )
+
+    # Thumbnail oben rechts (z. B. Banner, Logo)
+    embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png")
+    
     embed.add_field(name="Feinde", value=gegner, inline=True)
     embed.add_field(name="Mission", value=mission, inline=True)
     embed.add_field(name="Stratagems", value=stratagems, inline=False)
@@ -63,8 +67,12 @@ async def helldivers_bericht(
     embed.add_field(name="Ausgang", value=ausgang, inline=True)
     embed.add_field(name="Dauer", value=dauer, inline=True)
 
-    if map_image:
-        embed.set_image(url=map_image.url)
+    # Großes Bild unten (Map-Screenshot oder Standardbild)
+if map_image:
+    embed.set_image(url=map_image.url)
+else:
+    embed.set_image(url="https://helldivers.wiki.gg/images/Ministry_of_Defense_Icon.png")
+
 
     embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
 
