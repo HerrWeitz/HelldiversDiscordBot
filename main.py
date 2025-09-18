@@ -1,3 +1,15 @@
+import discord
+from discord.ext import commands
+
+# Bot erstellen
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
+
+# Event: Wenn Bot online ist
+@bot.event
+async def on_ready():
+    print(f"✅ Bot online: {bot.user}")
+
+# Slash Command
 @bot.slash_command(
     name="helldivers_bericht",
     description="Erstelle einen Helldivers Einsatzbericht"
@@ -20,6 +32,7 @@ async def helldivers_bericht(
         description=f"**Planet:** {planet}\n**Sektor:** {sektor}",
         color=discord.Color.blue()
     )
+
     embed.add_field(name="Feinde", value=gegner, inline=True)
     embed.add_field(name="Mission", value=mission, inline=True)
     embed.add_field(name="Stratagems", value=stratagems, inline=False)
@@ -28,10 +41,10 @@ async def helldivers_bericht(
     embed.add_field(name="Ausgang", value=ausgang, inline=True)
     embed.add_field(name="Dauer", value=dauer, inline=True)
 
-    # Thumbnail oben rechts
+    # Thumbnail (oben rechts)
     embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png")
 
-    # Map-Bild unten
+    # Map-Bild (unten, Standard oder hochgeladen)
     if map_image:
         embed.set_image(url=map_image.url)
     else:
@@ -39,5 +52,7 @@ async def helldivers_bericht(
 
     embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
 
-    # ✅ Wichtig: await bleibt DRIN in der Funktion
     await ctx.respond(embed=embed)
+
+# Bot starten
+bot.run("DEIN_BOT_TOKEN")
