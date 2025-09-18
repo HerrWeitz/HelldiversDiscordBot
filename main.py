@@ -55,4 +55,7 @@ async def helldivers_bericht(
     await ctx.respond(embed=embed)
 
 # Bot starten
-bot.run("DEIN_BOT_TOKEN")
+import os
+
+bot.run(os.getenv("TOKEN"))
+
