@@ -4,7 +4,7 @@ import os
 
 bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
-GUILD_ID = 1415795711747817545
+GUILD_ID = 1418306356716503042
 COUNTER_FILE = "bericht_counter.txt"
 
 # Counter laden
