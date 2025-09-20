@@ -1,7 +1,18 @@
+import discord
+from discord.ext import commands
+
+# Bot erstellen
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
+
+# Event: Bot startet
+@bot.event
+async def on_ready():
+    print(f"✅ Bot online: {bot.user}")
+
+# Slash Command Beispiel
 @bot.slash_command(
     name="helldivers_bericht",
-    description="Erstelle einen Helldivers Einsatzbericht",
-    guild_ids=[GUILD_ID]
+    description="Erstelle einen Helldivers Einsatzbericht"
 )
 async def helldivers_bericht(
     ctx,
@@ -16,11 +27,6 @@ async def helldivers_bericht(
     dauer: discord.Option(str, "Einsatzdauer (z. B. 45 Minuten)"),
     map_image: discord.Option(discord.Attachment, "Map-Screenshot hochladen", required=False)
 ):
-
-    # Sofortige Bestätigung
-    await ctx.respond("📋 Bericht wird erstellt...")
-
-    # Embed bauen
     embed = discord.Embed(
         title=f"Einsatzbericht – {planet}",
         description=f"Sektor: **{sektor}**",
@@ -34,16 +40,5 @@ async def helldivers_bericht(
     embed.add_field(name="Ausgang", value=ausgang, inline=True)
     embed.add_field(name="Dauer", value=dauer, inline=True)
 
-    # Thumbnail (kleines Logo oben rechts)
-    embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png")
-
-    # Map-Bild unten
-    if map_image:
-        embed.set_image(url=map_image.url)
-    else:
-        embed.set_image(url="https://helldivers.wiki.gg/images/Ministry_of_Defense_Icon.png")
-
-    embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
-
-    # Embed als neue Nachricht schicken
-    await ctx.send(embed=embed)
+    # Thumbnail (immer gleich)
+    embed.set_thumbnail(url="https:_
