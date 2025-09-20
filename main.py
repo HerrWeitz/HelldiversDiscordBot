@@ -1,18 +1,7 @@
-import discord
-from discord.ext import commands
-
-# Bot erstellen
-bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
-
-# Event: Wenn Bot online ist
-@bot.event
-async def on_ready():
-    print(f"✅ Bot online: {bot.user}")
-
-# Slash Command
 @bot.slash_command(
     name="helldivers_bericht",
-    description="Erstelle einen Helldivers Einsatzbericht"
+    description="Erstelle einen Helldivers Einsatzbericht",
+    guild_ids=[GUILD_ID]
 )
 async def helldivers_bericht(
     ctx,
@@ -27,12 +16,16 @@ async def helldivers_bericht(
     dauer: discord.Option(str, "Einsatzdauer (z. B. 45 Minuten)"),
     map_image: discord.Option(discord.Attachment, "Map-Screenshot hochladen", required=False)
 ):
+
+    # Sofortige Bestätigung
+    await ctx.respond("📋 Bericht wird erstellt...")
+
+    # Embed bauen
     embed = discord.Embed(
-        title=f"Einsatzbericht",
-        description=f"**Planet:** {planet}\n**Sektor:** {sektor}",
+        title=f"Einsatzbericht – {planet}",
+        description=f"Sektor: **{sektor}**",
         color=discord.Color.blue()
     )
-
     embed.add_field(name="Feinde", value=gegner, inline=True)
     embed.add_field(name="Mission", value=mission, inline=True)
     embed.add_field(name="Stratagems", value=stratagems, inline=False)
@@ -41,10 +34,10 @@ async def helldivers_bericht(
     embed.add_field(name="Ausgang", value=ausgang, inline=True)
     embed.add_field(name="Dauer", value=dauer, inline=True)
 
-    # Thumbnail (oben rechts)
+    # Thumbnail (kleines Logo oben rechts)
     embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png")
 
-    # Map-Bild (unten, Standard oder hochgeladen)
+    # Map-Bild unten
     if map_image:
         embed.set_image(url=map_image.url)
     else:
@@ -52,10 +45,5 @@ async def helldivers_bericht(
 
     embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
 
-    await ctx.respond(embed=embed)
-
-# Bot starten
-import os
-
-bot.run(os.getenv("TOKEN"))
-
+    # Embed als neue Nachricht schicken
+    await ctx.send(embed=embed)
