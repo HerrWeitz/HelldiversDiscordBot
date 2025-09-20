@@ -41,4 +41,19 @@ async def helldivers_bericht(
     embed.add_field(name="Dauer", value=dauer, inline=True)
 
     # Thumbnail (immer gleich)
-    embed.set_thumbnail(url="https:_
+    embed.set_thumbnail(url="https://static.wikia.nocookie.net/helldivers_gamepedia/images/7/76/Flag_of_Super_Earth.png")
+
+    # Map-Bild unten
+    if map_image:
+        embed.set_image(url=map_image.url)
+    else:
+        embed.set_image(url="https://helldivers.wiki.gg/images/Ministry_of_Defense_Icon.png")
+
+    embed.set_footer(text=f"Bericht eingereicht von {ctx.author.display_name}")
+
+    await ctx.respond(embed=embed)
+
+# Bot starten
+import os
+bot.run(os.getenv("TOKEN"))
+
